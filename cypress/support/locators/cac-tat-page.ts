@@ -7,4 +7,5 @@ export const cacTatPage = {
   successMessage: ".success",
   errorMessage: ".error",
   phoneCheckbox: "#phone-checkbox",
+  submitForm: "button[type='submit']",
 };

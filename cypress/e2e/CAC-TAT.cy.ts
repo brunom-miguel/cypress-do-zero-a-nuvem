@@ -8,27 +8,21 @@ describe("CAC TAT", () => {
   });
 
   it("Should fill the required fields and send the form", () => {
-    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
+    cy.get(cacTatPage.firstNameInput).type("Bruno", { delay: 0 });
+    cy.get(cacTatPage.lastNameInput).type("Miguel", { delay: 0 });
+    cy.get(cacTatPage.emailInput).type("email@email.com", { delay: 0 });
+    cy.get(cacTatPage.openTextAreaInput).type("random text", { delay: 0 });
 
-    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
-
-    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
-
-    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
-      delay: 0,
-    });
-
-    cy.contains("Enviar").click();
-
+    cy.get(cacTatPage.submitForm).click();
     cy.get(cacTatPage.successMessage)
       .should("be.visible")
       .and("contain.text", "Mensagem enviada com sucesso.");
   });
 
   it("Should display error message when provided email is invalid", () => {
-    cy.typeAndValidate(cacTatPage.emailInput, "email.com", { delay: 0 });
+    cy.get(cacTatPage.emailInput).type("email.com", { delay: 0 });
 
-    cy.contains("Enviar").click();
+    cy.get(cacTatPage.submitForm).click();
 
     cy.get(cacTatPage.errorMessage)
       .should("be.visible")
@@ -41,16 +35,14 @@ describe("CAC TAT", () => {
   });
 
   it("Should display error message when phone input is required but not provided", () => {
-    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
-    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
-    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
-    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
-      delay: 0,
-    });
+    cy.get(cacTatPage.firstNameInput).type("Bruno", { delay: 0 });
+    cy.get(cacTatPage.lastNameInput).type("Miguel", { delay: 0 });
+    cy.get(cacTatPage.emailInput).type("email@email.com", { delay: 0 });
+    cy.get(cacTatPage.openTextAreaInput).type("random text", { delay: 0 });
 
     cy.get(cacTatPage.phoneCheckbox).check();
 
-    cy.contains("Enviar").click();
+    cy.get(cacTatPage.submitForm).click();
 
     cy.get(cacTatPage.errorMessage)
       .should("be.visible")
@@ -58,21 +50,29 @@ describe("CAC TAT", () => {
   });
 
   it("Should be able clear input text fields", () => {
-    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
+    cy.get(cacTatPage.firstNameInput)
+      .type("Bruno", { delay: 0 })
+      .should("have.value", "Bruno");
     cy.get(cacTatPage.firstNameInput).clear().should("be.empty");
 
-    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
+    cy.get(cacTatPage.lastNameInput)
+      .type("Miguel", { delay: 0 })
+      .should("have.value", "Miguel");
     cy.get(cacTatPage.lastNameInput).clear().should("be.empty");
 
-    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
+    cy.get(cacTatPage.emailInput)
+      .type("email@email.com", { delay: 0 })
+      .should("have.value", "email@email.com");
     cy.get(cacTatPage.emailInput).clear().should("be.empty");
 
-    cy.typeAndValidate(cacTatPage.phoneInput, "5551988112233", { delay: 0 });
+    cy.get(cacTatPage.phoneInput)
+      .type("5551988112233")
+      .should("have.value", "5551988112233");
     cy.get(cacTatPage.phoneInput).clear().should("be.empty");
 
-    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
-      delay: 0,
-    });
+    cy.get(cacTatPage.openTextAreaInput)
+      .type("random text", { delay: 0 })
+      .should("have.value", "random text");
     cy.get(cacTatPage.openTextAreaInput).clear().should("be.empty");
   });
 
