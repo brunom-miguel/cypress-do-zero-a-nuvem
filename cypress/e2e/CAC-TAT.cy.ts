@@ -1,3 +1,5 @@
+import { cacTatPage } from "../support/locators/cac-tat-page";
+
 describe("CAC TAT", () => {
   beforeEach(() => cy.visit("../../src/index.html"));
 
@@ -6,20 +8,41 @@ describe("CAC TAT", () => {
   });
 
   it("Should fill the required fields and send the form", () => {
-    cy.typeAndValidate("#firstName", "Bruno", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
 
-    cy.typeAndValidate("#lastName", "Miguel", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
 
-    cy.typeAndValidate("#email", "email@email.com", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
 
-    cy.typeAndValidate("#phone", "5551988334455", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.phoneInput, "5551988334455", { delay: 0 });
 
-    cy.typeAndValidate("#open-text-area", "random text", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
+      delay: 0,
+    });
 
     cy.contains("Enviar").click();
 
-    cy.get(".success")
+    cy.get(cacTatPage.successMessage)
       .should("be.visible")
       .and("contain.text", "Mensagem enviada com sucesso.");
+  });
+
+  it("Should display error message when provided email is invalid", () => {
+    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
+
+    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
+
+    cy.typeAndValidate(cacTatPage.emailInput, "email.com", { delay: 0 });
+
+    cy.typeAndValidate(cacTatPage.phoneInput, "5551988334455", { delay: 0 });
+
+    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
+      delay: 0,
+    });
+    cy.contains("Enviar").click();
+
+    cy.get(cacTatPage.errorMessage)
+      .should("be.visible")
+      .and("contain.text", "Valide os campos obrigatórios!");
   });
 });
