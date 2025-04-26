@@ -33,7 +33,7 @@ describe("CAC TAT", () => {
 
   it("Should display error message when phone input is not numbers", () => {
     cy.get(cacTatPage.phoneInput).type("invalidNumber");
-    cy.get(cacTatPage.phoneInput).should("be.empty");
+    cy.get(cacTatPage.phoneInput).should("have.value", "");
   });
 
   it("Should display error message when phone input is required but not provided", () => {
@@ -55,27 +55,27 @@ describe("CAC TAT", () => {
     cy.get(cacTatPage.firstNameInput)
       .type("Bruno")
       .should("have.value", "Bruno");
-    cy.get(cacTatPage.firstNameInput).clear().should("be.empty");
+    cy.get(cacTatPage.firstNameInput).clear().should("have.value", "");
 
     cy.get(cacTatPage.lastNameInput)
       .type("Miguel")
       .should("have.value", "Miguel");
-    cy.get(cacTatPage.lastNameInput).clear().should("be.empty");
+    cy.get(cacTatPage.lastNameInput).clear().should("have.value", "");
 
     cy.get(cacTatPage.emailInput)
       .type("email@email.com")
       .should("have.value", "email@email.com");
-    cy.get(cacTatPage.emailInput).clear().should("be.empty");
+    cy.get(cacTatPage.emailInput).clear().should("have.value", "");
 
     cy.get(cacTatPage.phoneInput)
       .type("5551988112233")
       .should("have.value", "5551988112233");
-    cy.get(cacTatPage.phoneInput).clear().should("be.empty");
+    cy.get(cacTatPage.phoneInput).clear().should("have.value", "");
 
     cy.get(cacTatPage.openTextAreaInput)
       .type("random text")
       .should("have.value", "random text");
-    cy.get(cacTatPage.openTextAreaInput).clear().should("be.empty");
+    cy.get(cacTatPage.openTextAreaInput).clear().should("have.value", "");
   });
 
   it("Should display error message when required fields are not typed", () => {
