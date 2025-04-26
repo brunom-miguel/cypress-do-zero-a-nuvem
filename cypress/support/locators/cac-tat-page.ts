@@ -6,4 +6,5 @@ export const cacTatPage = {
   openTextAreaInput: "#open-text-area",
   successMessage: ".success",
   errorMessage: ".error",
+  phoneCheckbox: "#phone-checkbox",
 };

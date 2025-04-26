@@ -14,8 +14,6 @@ describe("CAC TAT", () => {
 
     cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
 
-    cy.typeAndValidate(cacTatPage.phoneInput, "5551988334455", { delay: 0 });
-
     cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
       delay: 0,
     });
@@ -40,5 +38,22 @@ describe("CAC TAT", () => {
   it("Should display error message when phone input is not numbers", () => {
     cy.get(cacTatPage.phoneInput).type("invalidNumber");
     cy.get(cacTatPage.phoneInput).should("be.empty");
+  });
+
+  it("Should display error message when phone input is required but not provided", () => {
+    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
+    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
+      delay: 0,
+    });
+
+    cy.get(cacTatPage.phoneCheckbox).check();
+
+    cy.contains("Enviar").click();
+
+    cy.get(cacTatPage.errorMessage)
+      .should("be.visible")
+      .and("contain.text", "Valide os campos obrigatórios!");
   });
 });
