@@ -10,9 +10,9 @@ describe("CAC TAT", () => {
   it.only("Should fill the required fields and send the form", () => {
     const longText = Cypress._.repeat("random text", 30);
 
-    cy.get(cacTatPage.firstNameInput).type("Bruno", { delay: 0 });
-    cy.get(cacTatPage.lastNameInput).type("Miguel", { delay: 0 });
-    cy.get(cacTatPage.emailInput).type("email@email.com", { delay: 0 });
+    cy.get(cacTatPage.firstNameInput).type("Bruno");
+    cy.get(cacTatPage.lastNameInput).type("Miguel");
+    cy.get(cacTatPage.emailInput).type("email@email.com");
     cy.get(cacTatPage.openTextAreaInput).type(longText, { delay: 0 });
 
     cy.get(cacTatPage.submitForm).click();
