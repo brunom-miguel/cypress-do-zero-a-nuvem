@@ -1,14 +1,9 @@
 declare namespace Cypress {
   interface Chainable {
     /**
-     * Custom command to get element, type specific text and validate
-     * it was written correctly
-     * @example cy.typeAndValidate("#firstname", "John");
+     * Custom command to type mandatory fields and submit the form
+     * @example cy.fillMandatoryFieldsAndSubmit();
      */
-    typeAndValidate(
-      selector: string,
-      text: string,
-      typeOptions?: object
-    ): Chainable<void>;
+    fillMandatoryFieldsAndSubmit(): Chainable<void>;
   }
 }

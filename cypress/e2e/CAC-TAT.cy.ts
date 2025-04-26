@@ -85,4 +85,12 @@ describe("CAC TAT", () => {
       .should("be.visible")
       .and("contain.text", "Valide os campos obrigatórios!");
   });
+
+  it("Should submit the form successfully using a custom command", () => {
+    cy.fillMandatoryFieldsAndSubmit();
+
+    cy.get(cacTatPage.successMessage)
+      .should("be.visible")
+      .and("contain.text", "Mensagem enviada com sucesso.");
+  });
 });

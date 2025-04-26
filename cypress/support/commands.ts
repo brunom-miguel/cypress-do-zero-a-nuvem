@@ -1,12 +1,17 @@
 /// <reference types="cypress" />
+import { cacTatPage } from "./locators/cac-tat-page";
 
-Cypress.Commands.add(
-  "typeAndValidate",
-  (selector: string, text: string, typeOptions?: object) => {
-    cy.get(selector).type(text, { ...typeOptions });
-    cy.get(selector).should("have.value", text);
-  }
-);
+Cypress.Commands.add("fillMandatoryFieldsAndSubmit", () => {
+  const longText = Cypress._.repeat("random text", 30);
+
+  cy.get(cacTatPage.firstNameInput).type("Bruno");
+  cy.get(cacTatPage.lastNameInput).type("Miguel");
+  cy.get(cacTatPage.emailInput).type("email@email.com");
+  cy.get(cacTatPage.phoneInput).type("123456789");
+  cy.get(cacTatPage.openTextAreaInput).type(longText, { delay: 0 });
+
+  cy.get(cacTatPage.submitForm).click();
+});
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
