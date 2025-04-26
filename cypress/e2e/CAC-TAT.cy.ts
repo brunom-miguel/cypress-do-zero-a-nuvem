@@ -7,7 +7,7 @@ describe("CAC TAT", () => {
     cy.title().should("be.equal", "Central de Atendimento ao Cliente TAT");
   });
 
-  it.only("Should fill the required fields and send the form", () => {
+  it("Should fill the required fields and send the form", () => {
     const longText = Cypress._.repeat("random text", 30);
 
     cy.get(cacTatPage.firstNameInput).type("Bruno");
@@ -22,7 +22,7 @@ describe("CAC TAT", () => {
   });
 
   it("Should display error message when provided email is invalid", () => {
-    cy.get(cacTatPage.emailInput).type("email.com", { delay: 0 });
+    cy.get(cacTatPage.emailInput).type("email.com");
 
     cy.get(cacTatPage.submitForm).click();
 
@@ -37,10 +37,10 @@ describe("CAC TAT", () => {
   });
 
   it("Should display error message when phone input is required but not provided", () => {
-    cy.get(cacTatPage.firstNameInput).type("Bruno", { delay: 0 });
-    cy.get(cacTatPage.lastNameInput).type("Miguel", { delay: 0 });
-    cy.get(cacTatPage.emailInput).type("email@email.com", { delay: 0 });
-    cy.get(cacTatPage.openTextAreaInput).type("random text", { delay: 0 });
+    cy.get(cacTatPage.firstNameInput).type("Bruno");
+    cy.get(cacTatPage.lastNameInput).type("Miguel");
+    cy.get(cacTatPage.emailInput).type("email@email.com");
+    cy.get(cacTatPage.openTextAreaInput).type("random text");
 
     cy.get(cacTatPage.phoneCheckbox).check();
 
@@ -53,17 +53,17 @@ describe("CAC TAT", () => {
 
   it("Should be able clear input text fields", () => {
     cy.get(cacTatPage.firstNameInput)
-      .type("Bruno", { delay: 0 })
+      .type("Bruno")
       .should("have.value", "Bruno");
     cy.get(cacTatPage.firstNameInput).clear().should("be.empty");
 
     cy.get(cacTatPage.lastNameInput)
-      .type("Miguel", { delay: 0 })
+      .type("Miguel")
       .should("have.value", "Miguel");
     cy.get(cacTatPage.lastNameInput).clear().should("be.empty");
 
     cy.get(cacTatPage.emailInput)
-      .type("email@email.com", { delay: 0 })
+      .type("email@email.com")
       .should("have.value", "email@email.com");
     cy.get(cacTatPage.emailInput).clear().should("be.empty");
 
@@ -73,7 +73,7 @@ describe("CAC TAT", () => {
     cy.get(cacTatPage.phoneInput).clear().should("be.empty");
 
     cy.get(cacTatPage.openTextAreaInput)
-      .type("random text", { delay: 0 })
+      .type("random text")
       .should("have.value", "random text");
     cy.get(cacTatPage.openTextAreaInput).clear().should("be.empty");
   });
