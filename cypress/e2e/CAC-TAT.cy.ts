@@ -75,4 +75,12 @@ describe("CAC TAT", () => {
     });
     cy.get(cacTatPage.openTextAreaInput).clear().should("be.empty");
   });
+
+  it("Should display error message when required fields are not typed", () => {
+    cy.contains("Enviar").click();
+
+    cy.get(cacTatPage.errorMessage)
+      .should("be.visible")
+      .and("contain.text", "Valide os campos obrigatórios!");
+  });
 });
