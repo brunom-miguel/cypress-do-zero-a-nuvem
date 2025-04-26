@@ -56,4 +56,23 @@ describe("CAC TAT", () => {
       .should("be.visible")
       .and("contain.text", "Valide os campos obrigatórios!");
   });
+
+  it("Should be able clear input text fields", () => {
+    cy.typeAndValidate(cacTatPage.firstNameInput, "Bruno", { delay: 0 });
+    cy.get(cacTatPage.firstNameInput).clear().should("be.empty");
+
+    cy.typeAndValidate(cacTatPage.lastNameInput, "Miguel", { delay: 0 });
+    cy.get(cacTatPage.lastNameInput).clear().should("be.empty");
+
+    cy.typeAndValidate(cacTatPage.emailInput, "email@email.com", { delay: 0 });
+    cy.get(cacTatPage.emailInput).clear().should("be.empty");
+
+    cy.typeAndValidate(cacTatPage.phoneInput, "5551988112233", { delay: 0 });
+    cy.get(cacTatPage.phoneInput).clear().should("be.empty");
+
+    cy.typeAndValidate(cacTatPage.openTextAreaInput, "random text", {
+      delay: 0,
+    });
+    cy.get(cacTatPage.openTextAreaInput).clear().should("be.empty");
+  });
 });
