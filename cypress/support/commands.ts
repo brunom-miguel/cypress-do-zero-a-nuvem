@@ -1,17 +1,31 @@
 /// <reference types="cypress" />
 import { cacTatPage } from "./locators/cac-tat-page";
 
-Cypress.Commands.add("fillMandatoryFieldsAndSubmit", () => {
-  const longText = Cypress._.repeat("random text", 30);
+export interface MandatoryFieldsValue {
+  firstName?: string;
+  lastName?: string;
+  emailInput?: string;
+  phoneInput?: string;
+  openTextAreaInput?: string;
+}
 
-  cy.get(cacTatPage.firstNameInput).type("Bruno");
-  cy.get(cacTatPage.lastNameInput).type("Miguel");
-  cy.get(cacTatPage.emailInput).type("email@email.com");
-  cy.get(cacTatPage.phoneInput).type("123456789");
-  cy.get(cacTatPage.openTextAreaInput).type(longText, { delay: 0 });
+Cypress.Commands.add(
+  "fillMandatoryFieldsAndSubmit",
+  (fields?: MandatoryFieldsValue) => {
+    const longText = Cypress._.repeat("random text", 30);
 
-  cy.get(cacTatPage.submitForm).click();
-});
+    cy.get(cacTatPage.firstNameInput).type(fields?.firstName || "FirstName");
+    cy.get(cacTatPage.lastNameInput).type(fields?.lastName || "LastName");
+    cy.get(cacTatPage.emailInput).type(fields?.emailInput || "email@email.com");
+    cy.get(cacTatPage.phoneInput).type(fields?.phoneInput || "123456789");
+    cy.get(cacTatPage.openTextAreaInput).type(
+      fields?.openTextAreaInput || longText,
+      { delay: 0 }
+    );
+
+    cy.get(cacTatPage.submitForm).click();
+  }
+);
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -38,13 +52,12 @@ Cypress.Commands.add("fillMandatoryFieldsAndSubmit", () => {
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      fillMandatoryFieldsAndSubmit(
+        fields?: MandatoryFieldsValue
+      ): Chainable<void>;
+    }
+  }
+}
