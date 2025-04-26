@@ -1,4 +1,12 @@
 /// <reference types="cypress" />
+
+Cypress.Commands.add(
+  "typeAndValidate",
+  (selector: string, text: string, typeOptions?: object) => {
+    cy.get(selector).type(text, { ...typeOptions });
+    cy.get(selector).should("have.value", text);
+  }
+);
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
