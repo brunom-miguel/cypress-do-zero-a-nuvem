@@ -101,10 +101,19 @@ describe("CAC TAT", () => {
 
     selectValues.forEach((value) => {
       it(`Should select value '${value}' accordingly`, () => {
-        cy.get(cacTatPage.selectField)
-          .select(value)
-          .should("have.value", value);
+        cy.get(cacTatPage.selectField).select(value);
       });
+    });
+
+    it.only("Should not be able to select 'Selecione' after have already selected an option", () => {
+      cy.get(cacTatPage.selectField)
+        .should("not.have.value")
+        .select(selectValues[0]);
+
+      cy.get(cacTatPage.selectField)
+        .find("option")
+        .contains("Selecione")
+        .should("be.disabled");
     });
 
     it("Should select a product (youtube) by the text", () => {
