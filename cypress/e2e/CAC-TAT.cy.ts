@@ -15,7 +15,7 @@ describe("CAC TAT", () => {
     cy.get(cacTatPage.emailInput).type("email@email.com");
     cy.get(cacTatPage.openTextAreaInput).type(longText, { delay: 0 });
 
-    cy.contains(cacTatPage.submitForm, "Enviar").click();
+    cy.contains("button", "Enviar").click();
     cy.get(cacTatPage.successMessage)
       .should("be.visible")
       .and("contain.text", "Mensagem enviada com sucesso.");
@@ -24,7 +24,7 @@ describe("CAC TAT", () => {
   it("Should display error message when provided email is invalid", () => {
     cy.get(cacTatPage.emailInput).type("email.com");
 
-    cy.contains(cacTatPage.submitForm, "Enviar").click();
+    cy.contains("button", "Enviar").click();
 
     cy.get(cacTatPage.errorMessage)
       .should("be.visible")
@@ -44,7 +44,7 @@ describe("CAC TAT", () => {
 
     cy.get(cacTatPage.phoneCheckbox).check();
 
-    cy.contains(cacTatPage.submitForm, "Enviar").click();
+    cy.contains("button", "Enviar").click();
 
     cy.get(cacTatPage.errorMessage)
       .should("be.visible")
@@ -79,7 +79,7 @@ describe("CAC TAT", () => {
   });
 
   it("Should display error message when required fields are not typed", () => {
-    cy.contains(cacTatPage.submitForm, "Enviar").click();
+    cy.contains("button", "Enviar").click();
 
     cy.get(cacTatPage.errorMessage)
       .should("be.visible")

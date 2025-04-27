@@ -12,18 +12,23 @@ export interface MandatoryFieldsValue {
 Cypress.Commands.add(
   "fillMandatoryFieldsAndSubmit",
   (fields?: MandatoryFieldsValue) => {
-    const longText = Cypress._.repeat("random text", 30);
+    const finalFields: MandatoryFieldsValue = {
+      firstName: fields?.firstName || "John",
+      lastName: fields?.lastName || "Doe",
+      emailInput: fields?.emailInput || "johndoe@email.com",
+      phoneInput: fields?.phoneInput || "123456789",
+      openTextAreaInput: fields?.openTextAreaInput || "random text",
+    };
 
-    cy.get(cacTatPage.firstNameInput).type(fields?.firstName || "FirstName");
-    cy.get(cacTatPage.lastNameInput).type(fields?.lastName || "LastName");
-    cy.get(cacTatPage.emailInput).type(fields?.emailInput || "email@email.com");
-    cy.get(cacTatPage.phoneInput).type(fields?.phoneInput || "123456789");
-    cy.get(cacTatPage.openTextAreaInput).type(
-      fields?.openTextAreaInput || longText,
-      { delay: 0 }
-    );
+    cy.get(cacTatPage.firstNameInput).type(finalFields.firstName);
+    cy.get(cacTatPage.lastNameInput).type(finalFields.lastName);
+    cy.get(cacTatPage.emailInput).type(finalFields.emailInput);
+    cy.get(cacTatPage.phoneInput).type(finalFields.phoneInput);
+    cy.get(cacTatPage.openTextAreaInput).type(finalFields.openTextAreaInput, {
+      delay: 0,
+    });
 
-    cy.contains(cacTatPage.submitForm, "Enviar").click();
+    cy.contains("button", "Enviar").click();
   }
 );
 // ***********************************************
