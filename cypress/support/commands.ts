@@ -23,7 +23,7 @@ Cypress.Commands.add(
       { delay: 0 }
     );
 
-    cy.get(cacTatPage.submitForm).click();
+    cy.contains(cacTatPage.submitForm, "Enviar").click();
   }
 );
 // ***********************************************
