@@ -97,6 +97,16 @@ describe("CAC TAT", () => {
   });
 
   context("Select field tests", () => {
+    const selectValues = ["blog", "cursos", "mentoria", "youtube"];
+
+    selectValues.forEach((value) => {
+      it(`Should select value '${value}' accordingly`, () => {
+        cy.get(cacTatPage.selectField)
+          .select(value)
+          .should("have.value", value);
+      });
+    });
+
     it("Should select a product (youtube) by the text", () => {
       cy.get(cacTatPage.selectField)
         .select("YouTube")
