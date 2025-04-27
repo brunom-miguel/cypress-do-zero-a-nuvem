@@ -96,17 +96,21 @@ describe("CAC TAT", () => {
     });
   });
 
-  context.only("Select field tests", () => {
-    it("Select a product (youtube) by the text", () => {
+  context("Select field tests", () => {
+    it("Should select a product (youtube) by the text", () => {
       cy.get(cacTatPage.selectField)
         .select("YouTube")
         .should("have.value", "youtube");
     });
 
-    it("Select a product (mentoria) by the value", () => {
+    it("Should select a product (mentoria) by the value", () => {
       cy.get(cacTatPage.selectField)
         .select("mentoria")
         .should("have.value", "mentoria");
+    });
+
+    it("Should select a product (blog) by the index", () => {
+      cy.get(cacTatPage.selectField).select(1).should("have.value", "blog");
     });
   });
 });
