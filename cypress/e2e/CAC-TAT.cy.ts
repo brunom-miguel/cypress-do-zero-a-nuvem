@@ -101,11 +101,13 @@ describe("CAC TAT", () => {
 
     selectValues.forEach((value) => {
       it(`Should select value '${value}' accordingly`, () => {
-        cy.get(cacTatPage.selectField).select(value);
+        cy.get(cacTatPage.selectField)
+          .select(value)
+          .should("have.value", value);
       });
     });
 
-    it.only("Should not be able to select 'Selecione' after have already selected an option", () => {
+    it("Should not be able to select 'Selecione' after have already selected an option", () => {
       cy.get(cacTatPage.selectField)
         .should("not.have.value")
         .select(selectValues[0]);
@@ -130,6 +132,15 @@ describe("CAC TAT", () => {
 
     it("Should select a product (blog) by the index", () => {
       cy.get(cacTatPage.selectField).select(1).should("have.value", "blog");
+    });
+  });
+
+  context.only("Radio input tests", () => {
+    it("Should check 'feedback' option", () => {
+      cy.get(cacTatPage.radioSupportType)
+        .find("input[value='feedback']")
+        .check()
+        .should("be.checked");
     });
   });
 });

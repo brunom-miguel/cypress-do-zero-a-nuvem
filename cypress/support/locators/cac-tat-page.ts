@@ -9,4 +9,5 @@ export const cacTatPage = {
   phoneCheckbox: "#phone-checkbox",
   submitForm: "button[type='submit']",
   selectField: "#product",
+  radioSupportType: "#support-type",
 };
