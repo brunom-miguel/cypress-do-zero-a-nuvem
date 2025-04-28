@@ -107,6 +107,18 @@ describe("CAC TAT", () => {
       });
     });
 
+    it.only("Should select each option of select tag", () => {
+      cy.get(cacTatPage.selectField)
+        .find("option:not([disabled])")
+        .should("have.length", selectValues.length);
+
+      selectValues.forEach((option) => {
+        cy.get(cacTatPage.selectField)
+          .select(option)
+          .should("have.value", option);
+      });
+    });
+
     it("Should not be able to select 'Selecione' after have already selected an option", () => {
       cy.get(cacTatPage.selectField)
         .should("not.have.value")
@@ -135,7 +147,7 @@ describe("CAC TAT", () => {
     });
   });
 
-  context.only("Radio input tests", () => {
+  context("Radio input tests", () => {
     it("Should check 'feedback' option", () => {
       cy.get(cacTatPage.radioSupportType)
         .find("input[value='feedback']")
