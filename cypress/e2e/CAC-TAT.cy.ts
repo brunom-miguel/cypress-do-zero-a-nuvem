@@ -142,5 +142,13 @@ describe("CAC TAT", () => {
         .check()
         .should("be.checked");
     });
+
+    it("Should check each option", () => {
+      cy.get(cacTatPage.radioSupportType)
+        .find("input[type='radio']")
+        .each(($radioInput) => {
+          cy.wrap($radioInput).check().should("be.checked");
+        });
+    });
   });
 });
