@@ -107,7 +107,7 @@ describe("CAC TAT", () => {
       });
     });
 
-    it.only("Should select each option of select tag", () => {
+    it("Should select each option of select tag", () => {
       cy.get(cacTatPage.selectField)
         .find("option:not([disabled])")
         .should("have.length", selectValues.length);
